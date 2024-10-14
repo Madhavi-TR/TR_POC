@@ -1,0 +1,169 @@
+{
+  "_version": "1.60.0",
+  "sap.app": {
+    "id": "ztrsoflowdemo.ztrsalesflow",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.15.1",
+      "toolsId": "0087809a-5537-4554-8efb-2bb9e91e50bf"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/service/ztr_so_flow_demoService/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "ztrsoflowdemoztrsalesflow-display": {
+          "semanticObject": "ztrsoflowdemoztrsalesflow",
+          "action": "display",
+          "title": "{{flpTitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.120.13",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {},
+        "sap.fe.macros": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "ztrsoflowdemo.ztrsalesflow.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "ZSAP_ORDERList",
+          "target": "ZSAP_ORDERList"
+        },
+        {
+          "pattern": "ZSAP_ORDER({key}):?query:",
+          "name": "ZSAP_ORDERObjectPage",
+          "target": "ZSAP_ORDERObjectPage"
+        }
+      ],
+      "targets": {
+        "ZSAP_ORDERList": {
+          "type": "Component",
+          "id": "ZSAP_ORDERList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/ZSAP_ORDER",
+              "variantManagement": "Page",
+              "navigation": {
+                "ZSAP_ORDER": {
+                  "detail": {
+                    "route": "ZSAP_ORDERObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "ZSAP_ORDERObjectPage": {
+          "type": "Component",
+          "id": "ZSAP_ORDERObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/ZSAP_ORDER",
+              "content": {
+                "body": {
+                  "sections": {
+                    "Process_Flow": {
+                      "template": "ztrsoflowdemo.ztrsalesflow.ext.fragment.Process_Flow",
+                      "position": {
+                        "placement": "After",
+                        "anchor": "GeneratedFacet1"
+                      },
+                      "title": "ZPROCESS_Flow"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}
